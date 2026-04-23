@@ -1,0 +1,490 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bark: #2f2504;
+  --umber: #594e36;
+  --sage: #7e846b;
+  --mist: #d0ddd7;
+  --cream: #eae8df;
+  --warm-white: #f7f5f0;
+  --accent: #a89f7c;
+}
+
+/* ── Page ─────────────────────────────────────────────── */
+
+.page {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bark);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Background blobs ─────────────────────────────────── */
+
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+  animation: drift 12s ease-in-out infinite alternate;
+}
+
+.bg-blob-1 {
+  width: 500px;
+  height: 500px;
+  background: var(--umber);
+  top: -200px;
+  left: -200px;
+  animation-delay: 0s;
+}
+
+.bg-blob-2 {
+  width: 350px;
+  height: 350px;
+  background: var(--sage);
+  bottom: -150px;
+  right: -150px;
+  animation-delay: -4s;
+}
+
+.bg-blob-3 {
+  width: 250px;
+  height: 250px;
+  background: var(--accent);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -8s;
+}
+
+@keyframes drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, 40px) scale(1.1); }
+}
+
+/* ── Card container ───────────────────────────────────── */
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+  position: relative;
+  z-index: 10;
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Left panel — Form ────────────────────────────────── */
+
+.left-panel {
+  width: 40%;
+  background: var(--warm-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 52px 100px;
+}
+
+.form-header {
+  margin-bottom: 36px;
+  animation: fadeUp 0.7s 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.form-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--bark);
+  margin-bottom: 6px;
+}
+
+.form-header p {
+  font-size: 13.5px;
+  color: var(--sage);
+  font-weight: 400;
+}
+
+/* ── Form groups ──────────────────────────────────────── */
+
+.form-group {
+  margin-bottom: 18px;
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.3s; }
+.form-group:nth-child(2) { animation-delay: 0.38s; }
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--umber);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 7px;
+}
+
+.input-wrap {
+  position: relative;
+}
+
+.input-wrap svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--sage);
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.input-wrap:focus-within svg {
+  color: var(--umber);
+}
+
+input[type='email'],
+input[type='password'],
+input[type='text'] {
+  width: 100%;
+  padding: 12px 14px 12px 40px;
+  background: var(--cream);
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--bark);
+  outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+input[type='email']::placeholder,
+input[type='password']::placeholder,
+input[type='text']::placeholder {
+  color: #b5b09e;
+}
+
+input[type='email']:focus,
+input[type='password']:focus,
+input[type='text']:focus {
+  border-color: var(--sage);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(126, 132, 107, 0.12);
+}
+
+/* ── Form options row ─────────────────────────────────── */
+
+.form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  animation: fadeUp 0.7s 0.44s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.remember input[type='checkbox'] {
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  margin: 0;
+  accent-color: var(--umber);
+  cursor: pointer;
+}
+
+.remember span {
+  font-size: 13px;
+  color: var(--umber);
+}
+
+.forgot {
+  font-size: 13px;
+  color: var(--sage);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.forgot:hover {
+  color: var(--bark);
+}
+
+/* ── Primary button ───────────────────────────────────── */
+
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  background: var(--bark);
+  color: var(--cream);
+  border: none;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  animation: fadeUp 0.7s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-login::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.btn-login:hover {
+  background: var(--umber);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(47, 37, 4, 0.3);
+}
+
+.btn-login:active {
+  transform: translateY(0);
+}
+
+/* ── Divider ──────────────────────────────────────────── */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0;
+  animation: fadeUp 0.7s 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.divider hr {
+  flex: 1;
+  border: none;
+  border-top: 1px solid #ddd9ce;
+}
+
+.divider span {
+  font-size: 12px;
+  color: #b5b09e;
+  white-space: nowrap;
+}
+
+/* ── SSO button ───────────────────────────────────────── */
+
+.btn-sso {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1.5px solid #ddd9ce;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--umber);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  animation: fadeUp 0.7s 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.btn-sso svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-sso:hover {
+  border-color: var(--sage);
+  background: var(--cream);
+}
+
+/* ── Sign-up link ─────────────────────────────────────── */
+
+.signup-link {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--sage);
+  animation: fadeUp 0.7s 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.signup-link a {
+  color: var(--bark);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid var(--bark);
+}
+
+.signup-link a:hover {
+  color: var(--umber);
+  border-color: var(--umber);
+}
+
+/* ── Right panel — Visual ─────────────────────────────── */
+
+.right-panel {
+  width: 60%;
+  background: linear-gradient(145deg, #3d3518 0%, #594e36 55%, #7e846b 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 44px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.right-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 70% 30%,
+    rgba(208, 221, 215, 0.12) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+.right-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: -60px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 1px solid rgba(208, 221, 215, 0.15);
+  pointer-events: none;
+}
+
+/* ── Brand ────────────────────────────────────────────── */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--mist);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--mist);
+  letter-spacing: 0.02em;
+}
+
+.brand-name span {
+  color: var(--accent);
+}
+
+/* ── Right copy ───────────────────────────────────────── */
+
+.right-copy {
+  position: relative;
+  z-index: 1;
+  animation: fadeUp 0.7s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.right-copy h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  font-weight: 600;
+  color: var(--cream);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.right-copy p {
+  font-size: 14px;
+  color: rgba(208, 221, 215, 0.65);
+  line-height: 1.7;
+  max-width: 280px;
+  font-weight: 300;
+}
+
+/* ── Right footer dots ────────────────────────────────── */
+
+.right-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 6px;
+  animation: fadeUp 0.7s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(208, 221, 215, 0.3);
+}
+
+.dot.active {
+  background: var(--mist);
+}
