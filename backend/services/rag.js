@@ -6,7 +6,10 @@ const OPEN_AI_KEY = process.env.OPEN_AI_KEY;
 const OPEN_AI_URL = "https://api.openai.com/v1/embeddings";
 const OPEN_AI_MODEL = "text-embedding-3-small";
 
-async function retrieveEmails(){}
+async function retrieveReadEmails(){
+    const emails = await service.getRead();
+    return emails;
+}
 
 async function chunkText(text, maxTokens = 4000) {
     const splitter = new RecursiveCharacterTextSplitter({ chunkSize: maxTokens, chunkOverlap: 0 })

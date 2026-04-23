@@ -22,9 +22,12 @@ export const login = async (req, res) => {
 };
 
 export const register = async (req, res) => {
+    if (!req.body.username || !req.body.password || !req.body.role) {
+        return res.status(400).send({ status: "Error", message: "Username, password, and role are required" });
+    }
     try {
-        const { username, password } = req.body;
-        const user = await crmService.register(username, password);
+        const { username, password, role } = req.body;
+        const user = await service.register(username, password, role);
         if (user) {
             res.send({ status: "OK", message: "User registered successfully" });
             console.log(`User ${username} registered`);
@@ -41,7 +44,7 @@ export const register = async (req, res) => {
 
 export const getUnread = async (req, res) => {
     try {
-        const emails = await service.getUnreadEmails();
+        const emails = await service.getUnread();
         res.send({ status: "OK", emails });
     } catch (error) {
         console.error(error);
@@ -50,9 +53,11 @@ export const getUnread = async (req, res) => {
 };
 
 export const getSource = async (req, res) => {
+
     try {
-        const { emailId } = req.query;
-        const source = await service.getEmailSource(emailId);
+        const messageId = req.body.messageId;
+        console.log('Received request for email source with ID at controller:', messageId);
+        const source = await service.getEmailbyId(messageId);
         res.send({ status: "OK", source });
     } catch (error) {
         console.error(error);
@@ -61,9 +66,12 @@ export const getSource = async (req, res) => {
 };
 
 export const answer = async (req, res) => {
+    if (!req.body || !req.body.messageId || !req.body.replyBody) {
+        return res.status(400).send({ status: "Error", message: "Message ID and reply body are required" });
+    }   
     try {
-        const { emailId, answer } = req.body;  
-        await service.answerEmail(emailId, answer);
+        const { messageId, replyBody } = req.body;  
+        await service.answerEmail(messageId, replyBody);
         res.send({ status: "OK", message: "Email answered successfully" });
     } catch (error) {
         console.error(error);
@@ -73,8 +81,8 @@ export const answer = async (req, res) => {
 
 export const generateAnswer = async (req, res) => {
     try {
-        const { emailId } = req.query;
-        const answer = await service.generateAnswer(emailId);
+        const { messageId } = req.query;
+        const answer = await service.generateAnswer(messageId);
         res.send({ status: "OK", answer });
     } catch (error) {
         console.error(error);
@@ -93,3 +101,88 @@ export const tweak = async (req, res) => {
     }
 };
 
+
+
+// dashboard controllers
+
+export const getEmailsReceived = async (req, res) => {
+    try {
+        const { period } = req.query; // day/week/month
+        const data = await service.getEmailsReceived(period);
+        res.send({ status: "OK", data });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: "Error", message: "Internal Server Error" });
+    }
+};
+
+export const getEmailsAnswered = async (req, res) => {
+    try {
+        const { period } = req.query; // day/week/month
+        const data = await service.getEmailsAnswered(period);
+        res.send({ status: "OK", data });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: "Error", message: "Internal Server Error" });
+    }
+};
+
+export const getPendingEmails = async (req, res) => {
+    try {
+        const count = await service.getPendingEmails();
+        res.send({ status: "OK", count });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: "Error", message: "Internal Server Error" });
+    }
+};
+
+export const getAvgResponseTime = async (req, res) => {
+    try {
+        const avgTime = await service.getAvgResponseTime();
+        res.send({ status: "OK", avgTime });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: "Error", message: "Internal Server Error" });
+    }
+};
+
+export const getMedianResponseTime = async (req, res) => {
+    try {
+        const medianTime = await service.getMedianResponseTime();
+        res.send({ status: "OK", medianTime });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: "Error", message: "Internal Server Error" });
+    }
+};
+
+export const getVolumeTrend = async (req, res) => {
+    try {
+        const trend = await service.getVolumeTrend();
+        res.send({ status: "OK", trend });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: "Error", message: "Internal Server Error" });
+    }
+};
+
+export const getResponseRateTrend = async (req, res) => {
+    try {
+        const trend = await service.getResponseRateTrend();
+        res.send({ status: "OK", trend });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: "Error", message: "Internal Server Error" });
+    }
+};
+
+export const getBusiestHours = async (req, res) => {
+    try {
+        const hours = await service.getBusiestHours();
+        res.send({ status: "OK", hours });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ status: "Error", message: "Internal Server Error" });
+    }
+};
