@@ -173,6 +173,7 @@ const Sparkline: React.FC<{ data: number[]; color: string; height?: number }> = 
 
 // ── Bar chart ─────────────────────────────────────────────────────────────────
 
+/*
 const BarChart: React.FC<{ data: { label: string; value: number }[]; color: string }> = ({
     data,
     color,
@@ -200,6 +201,7 @@ const BarChart: React.FC<{ data: { label: string; value: number }[]; color: stri
         </svg>
     );
 };
+*/
 
 // ── Line chart ────────────────────────────────────────────────────────────────
 
