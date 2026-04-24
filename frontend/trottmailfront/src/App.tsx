@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import "./App.css";
+import Dashboard from "./Dashboard";
 
 const App: React.FC = () => {
+  const [authed, setAuthed] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ email, password });
+    // Replace with your real auth call, e.g. await signIn(email, password)
+    if (email && password) setAuthed(true);
   };
+
+  if (authed) {
+    return <Dashboard onLogout={() => setAuthed(false)} />;
+  }
 
   return (
     <div className="page">
@@ -19,7 +26,6 @@ const App: React.FC = () => {
             <h2>Sign in</h2>
             <p>Enter your credentials to continue</p>
           </div>
-
           <form onSubmit={handleSubmit} noValidate>
             <div className="form-group">
               <label htmlFor="email">Email address</label>
@@ -91,13 +97,11 @@ const App: React.FC = () => {
               trott <span>mail</span>
             </span>
           </div>
-
           <div className="right-copy">
             <h1>
               Welcome<br />back.
             </h1>
           </div>
-
           <div className="right-footer">
             <div className="dot active" />
             <div className="dot" />
