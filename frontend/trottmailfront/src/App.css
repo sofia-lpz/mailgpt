@@ -124,6 +124,7 @@ body {
   flex-direction: column;
   justify-content: center;
   padding: 52px 100px;
+  overflow-y: auto;
 }
 
 .form-header {
@@ -487,4 +488,96 @@ input[type='text']:focus {
 
 .dot.active {
   background: var(--mist);
+}
+/* ── Responsive / Mobile ──────────────────────────────── */
+
+@media (max-width: 768px) {
+  html, body {
+    overflow: auto;
+  }
+
+  .page {
+    align-items: stretch;
+    min-height: 100%;
+    height: auto;
+  }
+
+  .container {
+    flex-direction: column-reverse;
+    height: auto;
+    min-height: 100%;
+    animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Right panel becomes a compact header on mobile */
+  .right-panel {
+    width: 100%;
+    padding: 28px 24px 24px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: unset;
+  }
+
+  .right-panel::after {
+    display: none;
+  }
+
+  .right-copy {
+    display: none;
+  }
+
+  .right-footer {
+    display: none;
+  }
+
+  .brand-name {
+    font-size: 16px;
+  }
+
+  .brand-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Mobile tagline — shown only on mobile */
+  .mobile-tagline {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--cream);
+    font-weight: 600;
+    opacity: 0.85;
+  }
+
+  /* Left panel takes full width */
+  .left-panel {
+    width: 100%;
+    padding: 36px 24px 48px;
+    flex: 1;
+    justify-content: flex-start;
+  }
+
+  .form-header {
+    margin-bottom: 28px;
+  }
+
+  .form-header h2 {
+    font-size: 24px;
+  }
+
+  .left-panel form {
+    width: 100%;
+  }
+}
+
+/* Hide mobile-only elements on desktop */
+.mobile-tagline {
+  display: none;
+}
+
+@media (max-width: 400px) {
+  .left-panel {
+    padding: 28px 18px 40px;
+  }
 }

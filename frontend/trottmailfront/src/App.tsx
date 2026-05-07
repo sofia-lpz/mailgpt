@@ -97,6 +97,7 @@ const App: React.FC = () => {
               trott <span>mail</span>
             </span>
           </div>
+          <span className="mobile-tagline">Welcome back.</span>
           <div className="right-copy">
             <h1>
               Welcome<br />back.
